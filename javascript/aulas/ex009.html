@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 0 20px;
+            margin-top: 2px;
+            background-color: aquamarine ;            
+        }
+        h1{
+            font-size: 40px;
+            background-color: aqua;
+            padding: 0 20px;
+            margin: 0 50px;
+        }
+        input{
+          
+            padding: 20 20px;
+            background-color:beige
+
+        }        
+        
+
+    </style>
+        <title>Document</title>
+</head>
+<body>
+    <h1>Em qual pais você está</h1>
+    Você está no Brasil ou no EUA ?<input type="text" name="txtvel" id="txtvel">
+    <input type="button" value="Verificar" onclick="pais()">
+    <div id="res">
+        
+
+    </div>
+    
+
+    <script>
+          function pais(){
+         var txtv = window.document.getElementById('txtvel') //poderia usar querySelector nas duas porem tem q usar # exemplo 'input#txtvel' e 'div#res'
+         var res = window.document.getElementById('res')
+         var pais = (txtv.value)
+    
+         if ( pais == 'BRASIL') {
+            res.innerHTML = `<p>Você é <strong>Brasileiro!</strong><p>`
+            }else if ('') {
+
+                res.innerHTML = `Não sei de que pais você é`            
+
+            }
+            else if (pais == 'EUA') {
+           
+           res.innerHTML = `<p>Você é <strong>Americano!</strong>`
+        
+
+            }
+            else if (pais == 'MEXICO') {
+           
+           res.innerHTML = `<p>Você é <strong>Mexicano!</strong>`
+           }
+           else if (pais == 'FRANÇA') {
+           
+           res.innerHTML = `<p>Você é <strong>Francês!</strong>`
+           }
+
+
+
+        }
+
+        
+    </script>
+</body>
+</html>

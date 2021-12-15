@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+</head>
+
+<style>
+
+    #grade{
+        width: 462px;
+        height: 462px;
+        margin: 50px auto;
+        position: relative;
+    }
+
+    #grade div{
+        width: 462px;
+        height: 462px;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        z-index: -1;
+    }
+    img{
+        width: 150px;
+        margin: 0 2px;
+    }
+
+</style>
+<body onload="iniciar();">
+
+    <div id="grade">
+        <div></div>
+    </div>
+<script>
+    const grade = document.querySelector("#grade");
+    const combinacoes = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
+
+    let marcadas = Array(9);
+    let vez = true;
+
+    function iniciar(){
+        for(let i = 0; i < marcadas.length; i++){
+            let quadrado = document.createElement("img");
+            quadrado.id = i;
+            quadrado.src = "branco.png";
+            quadrado.addEventListener("click", marcar);
+            grade.appendChild(quadrado);
+        }
+        
+    }
+
+    function marcar(){
+        let quadrado = this;
+        quadrado.src = vez ? "x.png" : "bolinha.jpg";
+        quadrado.removeEventListener("click", marcar);
+        marcadas[quadrado.id] = vez ? "x" : "bolinha";
+
+
+        let resultado = conferir("x") || conferir("bolinha");
+
+        if(resultado){
+            alert(resultado.mensagem);
+
+            if(resultado.combinacoes){
+                let quadrados = grade.getElementsByTagName("img");
+                for(img of quadrados){
+                   if(!resultado.combinacao.includes(paraseInt(img.id))){
+                       img.src = "branco.png";
+                       img.removeEventListener("click", marcar); 
+                    }
+                }
+            }
+
+        }
+
+        vez = !vez;
+    }
+    function conferir(jogador){
+        let jogadas = marcadas.reduce((arrayjogadas, elemento, indice)=>{
+            if(elemento == jogador){
+                return arrayjogadas.concat(indice);
+            }else{
+                return arrayjogadas;
+            }
+    },[]);
+    
+    for(combinacoes of combinacoes){
+        let ganhou = combinacoes.every(elemento =>{
+            return jogadas.includes(elemento);
+        });
+
+        if(ganhou){
+            return{
+                combinacao,
+                mensagem: `O jogador ${jogador} ganhou!`
+            }
+        }
+
+        if(!marcadas.includes(undefined)){
+            return {mensagem: "Empatou!"}
+        }
+    }
+        
+    
+
+
+
+    
+}  
+</script>
+
+</body>
+</html>
